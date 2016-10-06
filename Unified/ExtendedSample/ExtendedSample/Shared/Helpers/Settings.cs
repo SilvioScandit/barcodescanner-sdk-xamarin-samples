@@ -92,18 +92,22 @@ namespace ExtendedSample.Helpers
 				return ("Inv_" + symbology);
 			}
 			else {
-				throw new Exception("has no inversion");
+				return null;
 			}
 		}
 
 		public static bool getBoolSetting(string setting)
-		{
-			return AppSettings.GetValueOrDefault<bool>(setting, defaultBool(setting));
+        {
+            if (setting == RestrictedAreaString) { Debug.WriteLine("get {0} {1}", setting, AppSettings.GetValueOrDefault<bool>(setting, defaultBool(setting))); }
+
+            return AppSettings.GetValueOrDefault<bool>(setting, defaultBool(setting));
 		}
 
 		public static void setBoolSetting(string setting, bool value)
 		{
-			AppSettings.AddOrUpdateValue<bool>(setting, value);
+            if (setting == RestrictedAreaString) { Debug.WriteLine("set {0} {1}", setting, value); }
+
+            AppSettings.AddOrUpdateValue<bool>(setting, value);
 		}
 
 		private static bool defaultBool(string setting)

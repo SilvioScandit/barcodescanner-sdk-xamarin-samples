@@ -21,10 +21,6 @@ namespace ExtendedSample
 {
 	public class Convert
 	{
-		public Convert()
-		{
-		}
-
 		// Associates the key (string) for permanent storage with the list of symbologies in ScanSettings
 		public static IReadOnlyDictionary<string, Symbology[]> settingToSymbologies = new Dictionary<string, Symbology[]> {
 			{ "Sym_Ean13Upca", new Symbology[] { Symbology.Ean13, Symbology.Upca } },

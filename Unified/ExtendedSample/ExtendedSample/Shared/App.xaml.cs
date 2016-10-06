@@ -12,15 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using Scandit.BarcodePicker.Unified;
 using Xamarin.Forms;
 
 namespace ExtendedSample
 {
 	public partial class App : Application
-	{
-		public App()
-		{
-			InitializeComponent();
+    {
+        public static string appKey = "--- ENTER YOUR SCANDIT APP KEY HERE ---";
+
+        public App()
+        {
+            // must be set before you use the picker for the first time.
+            ScanditService.ScanditLicense.AppKey = appKey;
+
+            InitializeComponent();
 
 			MainPage = new NavigationPage(new ExtendedSamplePage());
 		}

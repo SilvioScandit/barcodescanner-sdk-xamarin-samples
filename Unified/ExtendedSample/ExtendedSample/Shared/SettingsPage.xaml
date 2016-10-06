@@ -16,47 +16,66 @@
 	<Style TargetType = "Label">
 		<Setter Property = "Margin" Value = "13" />
 	</Style>
+  <DataTemplate x:Key="SwitchTemplate">
+    <ViewCell><StackLayout>
+      <Label Text="F" />
+      <TableView><TableRoot><TableSection>
+        <SwitchCell Text="Foo" />
+        <!-- SwitchCell Text="{Binding Display}" On="{Binding Enabled, Mode=TwoWay}"/ -->
+      </TableSection></TableRoot></TableView>
+      <Label Text="g" />
+      <!--
+      <Switch IsVisible="{Binding InverseVisible}" Text="{Binding InverseDisplay}" On="{Binding InverseEnabled.Value, Mode=TwoWay}"/>
+      -->
+    </StackLayout></ViewCell>
+  </DataTemplate>
 </ResourceDictionary></ContentPage.Resources>
 
 <TableView Intent="Settings" HasUnevenRows="true">
 	<TableRoot>
-		<TableSection Title="Barcode decoder configuration" x:Name="SymbologySection" />
+    <TableSection Title="Barcode decoder configuration">
+      <ViewCell>
+        <ListView VerticalOptions="FillAndExpand" HasUnevenRows="True"
+          ItemsSource="{Binding Symbologies}"
+          ItemTemplate="{StaticResource SwitchTemplate}" />
+      </ViewCell>
+    </TableSection>
 		<TableSection Title="Scanning area">
-			<SwitchCell x:Name="RestrictedAreaCell" Text="Restricted scanning area" />
-				
-			<TextCell Text="{Binding Value, StringFormat='Hot spot height {0:F2}'}" BindingContext="{x:Reference HotSpotHeightSlider}"/>
-			<ViewCell><Slider Minimum="0" Maximum="0.5" x:Name="HotSpotHeightSlider" /></ViewCell>
-				
-			<TextCell Text="{Binding Value, StringFormat='Hot spot y {0:F2}'}" BindingContext="{x:Reference HotSpotYSlider}"/>
-			<ViewCell><Slider Minimum="0" Maximum="1" x:Name="HotSpotYSlider" /></ViewCell>	
+			<SwitchCell Text="Restricted scanning area" On="{Binding RestrictedAreaCell.Value, Mode=TwoWay}"/>
+      
+      <ViewCell><Label Text="{Binding HotSpotHeightSlider.Value, StringFormat='Hot spot height {0:F2}'}"/></ViewCell>
+			<ViewCell><Slider Minimum="0" Maximum="0.5" Value="{Binding HotSpotHeightSlider.Value, Mode=TwoWay}" /></ViewCell>
+
+      <ViewCell><Label Text="{Binding HotSpotYSlider.Value, StringFormat='Hot spot y {0:F2}'}" /></ViewCell>
+			<ViewCell><Slider Minimum="0" Maximum="1" Value="{Binding HotSpotYSlider.Value, Mode=TwoWay}" /></ViewCell>	
 		</TableSection>
 		<TableSection Title="Viewfinder">
-			<TextCell Text="GUI Style" />
+			<ViewCell><Label  Text="GUI Style" /></ViewCell>
 			<ViewCell><Picker x:Name="GuiStylePicker" Title="Style"><Picker.Items>
-            	<x:String>Rectangle</x:String> 
-            	<x:String>Laser</x:String>
-				<x:String>None</x:String>
+       	<x:String>Rectangle</x:String> 
+      	<x:String>Laser</x:String>
+	     	<x:String>None</x:String>
 			</Picker.Items></Picker></ViewCell>
 				
-			<TextCell Text="{Binding Value, StringFormat='Width (portrait) {0:F2}'}" BindingContext="{x:Reference ViewFinderPortraitWidth}"/>
-			<ViewCell><Slider Minimum="0" Maximum="1" x:Name="ViewFinderPortraitWidth" /></ViewCell>
+			<ViewCell><Label  Text="{Binding ViewFinderPortraitWidth.Value, StringFormat='Width (portrait) {0:F2}'}"/></ViewCell>
+			<ViewCell><Slider Minimum="0" Maximum="1" Value="{Binding ViewFinderPortraitWidth.Value, Mode=TwoWay}" /></ViewCell>
 
-			<TextCell Text="{Binding Value, StringFormat='Height (portrait) {0:F2}'}" BindingContext="{x:Reference ViewFinderPortraitHeight}"/>
-			<ViewCell><Slider Minimum="0" Maximum="1" x:Name="ViewFinderPortraitHeight" /></ViewCell>
+			<ViewCell><Label Text="{Binding ViewFinderPortraitHeight.Value, StringFormat='Height (portrait) {0:F2}'}"/></ViewCell>
+			<ViewCell><Slider Minimum="0" Maximum="1"  Value="{Binding ViewFinderPortraitHeight.Value, Mode=TwoWay}" /></ViewCell>
 
-			<TextCell Text="{Binding Value, StringFormat='Width (landscape) {0:F2}'}" BindingContext="{x:Reference ViewFinderLandscapeWidth}"/>
-			<ViewCell><Slider Minimum="0" Maximum="1" x:Name="ViewFinderLandscapeWidth" /></ViewCell>
+			<ViewCell><Label Text="{Binding ViewFinderLandscapeWidth.Value, StringFormat='Width (landscape) {0:F2}'}"/></ViewCell>
+			<ViewCell><Slider Minimum="0" Maximum="1"  Value="{Binding ViewFinderLandscapeWidth.Value, Mode=TwoWay}" /></ViewCell>
 
-			<TextCell Text="{Binding Value, StringFormat='Height (landscape) {0:F2}'}" BindingContext="{x:Reference ViewFinderLandscapeHeight}"/>
-			<ViewCell><Slider Minimum="0" Maximum="1" x:Name="ViewFinderLandscapeHeight" /></ViewCell>
+			<ViewCell><Label Text="{Binding ViewFinderLandscapeHeight.Value, StringFormat='Height (landscape) {0:F2}'}"/></ViewCell>
+			<ViewCell><Slider Minimum="0" Maximum="1" Value="{Binding ViewFinderLandscapeHeight.Value, Mode=TwoWay}" /></ViewCell>
 		</TableSection>
 
 		<TableSection Title="Feedback">
-			<SwitchCell x:Name="BeepCell" Text="Beep"/>
-			<SwitchCell x:Name="VibrateCell" Text="Vibrate"/>
+			<SwitchCell x:Name="BeepCell" Text="Beep" On="{Binding BeepCell.Value, Mode=TwoWay}"/>
+			<SwitchCell x:Name="VibrateCell" Text="Vibrate" On="{Binding VibrateCell.Value, Mode=TwoWay}"/>
 		</TableSection>
 		<TableSection Title="Torch button">
-			<SwitchCell x:Name="TorchButtonCell" Text="Visible" />
+			<SwitchCell x:Name="TorchButtonCell" Text="Visible" On="{Binding TorchButtonCell.Value, Mode=TwoWay}"/>
 		</TableSection>
 		<TableSection Title="Camera switch button">
 			<ViewCell><Picker x:Name="CameraButtonPicker" Title="Visible"><Picker.Items>
